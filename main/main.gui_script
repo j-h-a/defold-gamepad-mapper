@@ -78,6 +78,8 @@ function on_message(self, message_id, message, sender)
         show_mapper_screen(self, message.gamepad_index)
     elseif message_id == msg.MAPPING_CANCELLED then
         show_list_screen(self, "Mapping cancelled!")
+    elseif message_id == msg.MAPPING_COMPLETED then
+        show_list_screen(self, message.status)
     end
 end
 

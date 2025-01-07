@@ -15,10 +15,6 @@ key_trigger {
   action: "key_4"
 }
 key_trigger {
-  input: KEY_ESC
-  action: "key_esc"
-}
-key_trigger {
   input: KEY_KP_1
   action: "key_1"
 }
@@ -33,6 +29,14 @@ key_trigger {
 key_trigger {
   input: KEY_KP_4
   action: "key_4"
+}
+key_trigger {
+  input: KEY_ESC
+  action: "key_esc"
+}
+key_trigger {
+  input: KEY_BACKSPACE
+  action: "key_backspace"
 }
 gamepad_trigger {
   input: GAMEPAD_RAW

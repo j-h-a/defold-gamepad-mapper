@@ -26,13 +26,134 @@ local all_inputs = {
     "rtrigger",
     "back",
     "start",
-    "home",
+    "guide",
 }
 
 local inputs_info = {
     lstick_up = {
         name = "Left Stick Up",
-        prompt = "Move the left stick up, and hold it there.",
+        prompt = "Move the left stick UP, and hold it there.",
+        trigger_name = "GAMEPAD_LSTICK_UP",
+    },
+    lstick_down = {
+        name = "Left Stick Down",
+        prompt = "Move the left stick DOWN, and hold it there.",
+        trigger_name = "GAMEPAD_LSTICK_DOWN",
+    },
+    lstick_left = {
+        name = "Left Stick Left",
+        prompt = "Move the left stick LEFT, and hold it there.",
+        trigger_name = "GAMEPAD_LSTICK_LEFT",
+    },
+    lstick_right = {
+        name = "Left Stick Right",
+        prompt = "Move the left stick RIGHT, and hold it there.",
+        trigger_name = "GAMEPAD_LSTICK_RIGHT",
+    },
+    lstick_click = {
+        name = "Left Stick Click",
+        prompt = "Depress to CLICK the left stick centrally (and hold).",
+        trigger_name = "GAMEPAD_LSTICK_CLICK",
+    },
+    rstick_up = {
+        name = "Right Stick Up",
+        prompt = "Move the right stick UP, and hold it there.",
+        trigger_name = "GAMEPAD_RSTICK_UP",
+    },
+    rstick_down = {
+        name = "Right Stick Down",
+        prompt = "Move the right stick DOWN, and hold it there.",
+        trigger_name = "GAMEPAD_RSTICK_DOWN",
+    },
+    rstick_left = {
+        name = "Right Stick Left",
+        prompt = "Move the right stick LEFT, and hold it there.",
+        trigger_name = "GAMEPAD_RSTICK_LEFT",
+    },
+    rstick_right = {
+        name = "Right Stick Right",
+        prompt = "Move the right stick RIGHT, and hold it there.",
+        trigger_name = "GAMEPAD_RSTICK_RIGHT",
+    },
+    rstick_click = {
+        name = "Right Stick Click",
+        prompt = "Depress to CLICK the right stick centrally (and hold).",
+        trigger_name = "GAMEPAD_RSTICK_CLICK",
+    },
+    lpad_up = {
+        name = "L-PAD Up",
+        prompt = "Press and hold UP on the left-side D-PAD.",
+        trigger_name = "GAMEPAD_LPAD_UP",
+    },
+    lpad_down = {
+        name = "L-PAD Down",
+        prompt = "Press and hold DOWN on the left-side D-PAD.",
+        trigger_name = "GAMEPAD_LPAD_DOWN",
+    },
+    lpad_left = {
+        name = "L-PAD Left",
+        prompt = "Press and hold LEFT on the left-side D-PAD.",
+        trigger_name = "GAMEPAD_LPAD_LEFT",
+    },
+    lpad_right = {
+        name = "L-PAD Right",
+        prompt = "Press and hold RIGHT on the left-side D-PAD.",
+        trigger_name = "GAMEPAD_LPAD_RIGHT",
+    },
+    rpad_up = {
+        name = "R-PAD Up",
+        prompt = "Using the four action buttons on the right-side,\npress and hold the TOP button.",
+        trigger_name = "GAMEPAD_RPAD_UP",
+    },
+    rpad_down = {
+        name = "R-PAD Down",
+        prompt = "Using the four action buttons on the right-side,\npress and hold the BOTTOM button.",
+        trigger_name = "GAMEPAD_RPAD_DOWN",
+    },
+    rpad_left = {
+        name = "R-PAD Left",
+        prompt = "Using the four action buttons on the right-side,\npress and hold the LEFT button.",
+        trigger_name = "GAMEPAD_RPAD_LEFT",
+    },
+    rpad_right = {
+        name = "R-PAD Right",
+        prompt = "Using the four action buttons on the right-side,\npress and hold the RIGHT button.",
+        trigger_name = "GAMEPAD_RPAD_RIGHT",
+    },
+    lshoulder = {
+        name = "Left Shoulder Button",
+        prompt = "Press and hold the LEFT shoulder button\n(a.k.a. left-bumper or L1).",
+        trigger_name = "GAMEPAD_LSHOULDER",
+    },
+    rshoulder = {
+        name = "Right Shoulder Button",
+        prompt = "Press and hold the RIGHT sholder button\n(a.k.a. right-bumper or R1).",
+        trigger_name = "GAMEPAD_RSHOULDER",
+    },
+    ltrigger = {
+        name = "Left Trigger",
+        prompt = "Press and hold the LEFT trigger\n(a.k.a. ZL or L2).",
+        trigger_name = "GAMEPAD_LTRIGGER",
+    },
+    rtrigger = {
+        name = "Right Trigger",
+        prompt = "Press and hold the RIGHT trigger\n(a.k.a. ZR or R2).",
+        trigger_name = "GAMEPAD_RTRIGGER",
+    },
+    back = {
+        name = "Back Button",
+        prompt = "Press and hold the back button\n(a.k.a. '-' or select).",
+        trigger_name = "GAMEPAD_BACK",
+    },
+    start = {
+        name = "Start Button",
+        prompt = "Press and hold the start button\n(a.k.a. '+' or menu).",
+        trigger_name = "GAMEPAD_START",
+    },
+    guide = {
+        name = "Home/Guide Button",
+        prompt = "Press and hold the home/guide button.",
+        trigger_name = "GAMEPAD_GUIDE",
     },
 }
 
@@ -43,20 +164,31 @@ local function highlight_single_input(self, lit_input)
     end
 end
 
-local function set_prompt_text(self, text)
-    gui.set_text(gui.get_node("prompt_text"), text)
+local function set_input_name_and_prompt(self, name, prompt)
+    gui.set_text(gui.get_node("current_input"), name)
+    gui.set_text(gui.get_node("prompt_text"), prompt)
+end
+
+local function complete_mapping(self)
+    msg.post(messages.main_gui, msg.MAPPING_COMPLETED, { status = "Mapping complete." })
 end
 
 local function continue_mapping_next(self)
     self.active_input = self.active_input + 1
+    if self.active_input > #all_inputs then
+        complete_mapping(self)
+        return
+    end
+
     local input_id = all_inputs[self.active_input]
     highlight_single_input(self, input_id)
 
     local input_info = inputs_info[input_id]
-    set_prompt_text(self, input_info.prompt)
+    set_input_name_and_prompt(self, input_info.name, input_info.prompt)
 end
 
 local function begin_mapping(self)
+    self.captured_inputs = {}
     self.active_input = 0
     continue_mapping_next(self)
 end
@@ -103,8 +235,10 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-    if action_id == hash("key_esc") then
+    if action_id == hash("key_esc") and action.pressed then
         msg.post(messages.main_gui, msg.MAPPING_CANCELLED)
+    elseif action_id == hash("key_backspace") and action.pressed then
+        continue_mapping_next(self)
     elseif action_id == hash("raw") and action.gamepad == self.gamepad_index then
     end
 end

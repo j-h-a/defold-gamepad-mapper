@@ -230,7 +230,7 @@ nodes {
   }
   type: TYPE_BOX
   texture: "main/lit_home"
-  id: "lit_home"
+  id: "lit_guide"
   parent: "root"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
@@ -753,19 +753,50 @@ nodes {
 }
 nodes {
   position {
-    y: -324.0
+    y: -200.0
+  }
+  size {
+    x: 240.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  font: "default"
+  id: "current_input"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -286.0
   }
   scale {
     x: 2.0
     y: 2.0
   }
   size {
-    x: 512.0
+    x: 480.0
     y: 30.0
   }
   type: TYPE_TEXT
   font: "default"
   id: "prompt_text"
+  line_break: true
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -360.0
+  }
+  size {
+    x: 900.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "If your controller doesn\'t have the requested input, press BACKSPACE to skip it; press ESC to cancel mapping."
+  font: "default"
+  id: "other_controls"
+  line_break: true
   parent: "root"
   inherit_alpha: true
 }

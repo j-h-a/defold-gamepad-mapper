@@ -11,6 +11,7 @@ msg.UPDATE_STATUS_TEXT     = hash("update_status_text")
 msg.DEVICES_UPDATED        = hash("devices_updated")
 msg.START_MAPPING          = hash("start_mapping")
 msg.MAPPING_CANCELLED      = hash("mapping_cancelled")
+msg.MAPPING_COMPLETED      = hash("mapping_completed")
 msg.GAMEPAD_SELECTED       = hash("gamepad_selected")
 
 -- URLs
