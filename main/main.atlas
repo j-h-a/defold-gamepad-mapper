@@ -1,31 +1,121 @@
 images {
-  image: "/assets/button.png"
+  image: "/assets/controller/controller_main.png"
 }
 images {
-  image: "/assets/generic_controller.png"
+  image: "/assets/controller/controller_top.png"
 }
 images {
-  image: "/assets/lit_home.png"
+  image: "/assets/controller/lit_home.png"
 }
 images {
-  image: "/assets/lit_lpad.png"
+  image: "/assets/controller/lit_lpad.png"
 }
 images {
-  image: "/assets/lit_rpad.png"
+  image: "/assets/controller/lit_rpad.png"
 }
 images {
-  image: "/assets/lit_shoulder.png"
+  image: "/assets/controller/lit_shoulder.png"
 }
 images {
-  image: "/assets/lit_start.png"
+  image: "/assets/controller/lit_start.png"
 }
 images {
-  image: "/assets/lit_stick_arrow.png"
+  image: "/assets/controller/lit_stick_arrow.png"
 }
 images {
-  image: "/assets/lit_stick_dot.png"
+  image: "/assets/controller/lit_stick_dot.png"
 }
 images {
-  image: "/assets/lit_trigger.png"
+  image: "/assets/controller/lit_trigger.png"
+}
+images {
+  image: "/assets/input_icons/icon_lstick_up.png"
+}
+images {
+  image: "/assets/input_icons/icon_lstick_down.png"
+}
+images {
+  image: "/assets/input_icons/icon_lstick_left.png"
+}
+images {
+  image: "/assets/input_icons/icon_lstick_right.png"
+}
+images {
+  image: "/assets/input_icons/icon_lstick_click.png"
+}
+images {
+  image: "/assets/input_icons/icon_rstick_up.png"
+}
+images {
+  image: "/assets/input_icons/icon_rstick_down.png"
+}
+images {
+  image: "/assets/input_icons/icon_rstick_left.png"
+}
+images {
+  image: "/assets/input_icons/icon_rstick_right.png"
+}
+images {
+  image: "/assets/input_icons/icon_rstick_click.png"
+}
+images {
+    image: "/assets/input_icons/icon_lpad_up.png"
+}
+images {
+    image: "/assets/input_icons/icon_lpad_down.png"
+}
+images {
+    image: "/assets/input_icons/icon_lpad_left.png"
+}
+images {
+    image: "/assets/input_icons/icon_lpad_right.png"
+}
+images {
+    image: "/assets/input_icons/icon_rpad_up.png"
+}
+images {
+    image: "/assets/input_icons/icon_rpad_down.png"
+}
+images {
+    image: "/assets/input_icons/icon_rpad_left.png"
+}
+images {
+    image: "/assets/input_icons/icon_rpad_right.png"
+}
+images {
+    image: "/assets/input_icons/icon_lshoulder.png"
+}
+images {
+    image: "/assets/input_icons/icon_rshoulder.png"
+}
+images {
+    image: "/assets/input_icons/icon_ltrigger.png"
+}
+images {
+    image: "/assets/input_icons/icon_rtrigger.png"
+}
+images {
+    image: "/assets/input_icons/icon_back.png"
+}
+images {
+    image: "/assets/input_icons/icon_start.png"
+}
+images {
+    image: "/assets/input_icons/icon_guide.png"
+}
+images {
+  image: "/assets/ui_components/button.png"
+}
+images {
+  image: "/assets/ui_components/inlay.png"
+}
+images {
+  image: "/assets/ui_components/border.png"
+}
+images {
+  image: "/assets/ui_components/checkbox_done.png"
+}
+images {
+  image: "/assets/ui_components/checkbox_skip.png"
 }
 margin: 1

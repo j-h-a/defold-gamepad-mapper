@@ -24,7 +24,7 @@ nodes {
 }
 nodes {
   position {
-    y: 320.0
+    y: 350.0
   }
   scale {
     x: 2.0
@@ -42,9 +42,12 @@ nodes {
   inherit_alpha: true
 }
 nodes {
+  position {
+    y: 240.0
+  }
   type: TYPE_BOX
-  texture: "main/generic_controller"
-  id: "gamepad"
+  texture: "main/controller_top"
+  id: "gamepad_top"
   parent: "root"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
@@ -52,31 +55,31 @@ nodes {
 nodes {
   position {
     x: -90.5
-    y: 105.0
+    y: -35.0
   }
   type: TYPE_BOX
   texture: "main/lit_shoulder"
   id: "lit_lshoulder"
-  parent: "root"
+  parent: "gamepad_top"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: -87.5
-    y: 140.5
+    y: 0.5
   }
   type: TYPE_BOX
   texture: "main/lit_trigger"
   id: "lit_ltrigger"
-  parent: "root"
+  parent: "gamepad_top"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: 90.5
-    y: 105.0
+    y: -35.0
   }
   scale {
     x: -1.0
@@ -84,14 +87,14 @@ nodes {
   type: TYPE_BOX
   texture: "main/lit_shoulder"
   id: "lit_rshoulder"
-  parent: "root"
+  parent: "gamepad_top"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: 87.5
-    y: 140.5
+    y: 0.5
   }
   scale {
     x: -1.0
@@ -99,102 +102,17 @@ nodes {
   type: TYPE_BOX
   texture: "main/lit_trigger"
   id: "lit_rtrigger"
-  parent: "root"
+  parent: "gamepad_top"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
-    x: -50.5
-    y: -89.0
+    y: -80.0
   }
   type: TYPE_BOX
-  texture: "main/lit_lpad"
-  id: "lit_lpad_up"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: -50.5
-    y: -128.0
-  }
-  type: TYPE_BOX
-  texture: "main/lit_lpad"
-  id: "lit_lpad_down"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: -69.5
-    y: -108.5
-  }
-  type: TYPE_BOX
-  texture: "main/lit_lpad"
-  id: "lit_lpad_left"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: -31.0
-    y: -108.5
-  }
-  type: TYPE_BOX
-  texture: "main/lit_lpad"
-  id: "lit_lpad_right"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: 98.0
-    y: -24.5
-  }
-  type: TYPE_BOX
-  texture: "main/lit_rpad"
-  id: "lit_rpad_up"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: 98.0
-    y: -74.5
-  }
-  type: TYPE_BOX
-  texture: "main/lit_rpad"
-  id: "lit_rpad_down"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: 69.5
-    y: -49.5
-  }
-  type: TYPE_BOX
-  texture: "main/lit_rpad"
-  id: "lit_rpad_left"
-  parent: "root"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: 126.5
-    y: -49.5
-  }
-  type: TYPE_BOX
-  texture: "main/lit_rpad"
-  id: "lit_rpad_right"
+  texture: "main/controller_main"
+  id: "gamepad_main"
   parent: "root"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
@@ -202,43 +120,139 @@ nodes {
 nodes {
   position {
     x: 28.75
-    y: -50.5
+    y: 50.5
   }
   type: TYPE_BOX
   texture: "main/lit_start"
   id: "lit_start"
-  parent: "root"
+  parent: "gamepad_main"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: -30.75
-    y: -50.5
+    y: 50.5
   }
   type: TYPE_BOX
   texture: "main/lit_start"
   id: "lit_back"
-  parent: "root"
+  parent: "gamepad_main"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: -1.0
-    y: -74.5
+    y: 26.5
   }
   type: TYPE_BOX
   texture: "main/lit_home"
   id: "lit_guide"
-  parent: "root"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -50.5
+    y: 12.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_up"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -50.5
+    y: -27.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_down"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -69.5
+    y: -7.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_left"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -31.0
+    y: -7.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_right"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 98.0
+    y: 76.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_up"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 98.0
+    y: 26.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_down"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 69.5
+    y: 51.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_left"
+  parent: "gamepad_main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 126.5
+    y: 51.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_right"
+  parent: "gamepad_main"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: -104.5
-    y: -49.0
+    y: 52.0
   }
   size {
     x: 104.0
@@ -246,7 +260,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "group_lstick"
-  parent: "root"
+  parent: "gamepad_main"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
   visible: false
@@ -496,7 +510,7 @@ nodes {
 nodes {
   position {
     x: 50.0
-    y: -114.0
+    y: -13.0
   }
   size {
     x: 104.0
@@ -504,7 +518,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "group_rstick"
-  parent: "root"
+  parent: "gamepad_main"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
   visible: false
@@ -753,7 +767,7 @@ nodes {
 }
 nodes {
   position {
-    y: -200.0
+    y: -220.0
   }
   size {
     x: 240.0
@@ -799,6 +813,148 @@ nodes {
   line_break: true
   parent: "root"
   inherit_alpha: true
+}
+nodes {
+  position {
+    x: 512.0
+    y: -64.0
+  }
+  size {
+    x: 100.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "input_item"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  enabled: false
+  visible: false
+}
+nodes {
+  size {
+    x: 100.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  texture: "main/button"
+  id: "bg"
+  parent: "input_item"
+  inherit_alpha: true
+  slice9 {
+    x: 6.0
+    y: 6.0
+    z: 6.0
+    w: 6.0
+  }
+}
+nodes {
+  position {
+    x: -30.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  texture: "main/icon_guide"
+  id: "icon"
+  parent: "input_item"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 17.0
+  }
+  size {
+    x: 54.0
+    y: 28.0
+  }
+  type: TYPE_BOX
+  texture: "main/inlay"
+  id: "inlay"
+  parent: "input_item"
+  inherit_alpha: true
+  slice9 {
+    x: 3.0
+    y: 3.0
+    z: 3.0
+    w: 3.0
+  }
+}
+nodes {
+  position {
+    x: 13.0
+  }
+  size {
+    x: 22.0
+    y: 22.0
+  }
+  type: TYPE_BOX
+  texture: "main/border"
+  id: "checkbox_border"
+  parent: "inlay"
+  inherit_alpha: true
+  slice9 {
+    x: 3.0
+    y: 3.0
+    z: 3.0
+    w: 3.0
+  }
+}
+nodes {
+  position {
+    x: -24.0
+  }
+  scale {
+    x: 0.6
+    y: 0.6
+  }
+  size {
+    x: 42.0
+    y: 36.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "H-01\n"
+  "&8"
+  font: "default"
+  id: "mapping_text"
+  pivot: PIVOT_W
+  line_break: true
+  parent: "inlay"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 13.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  texture: "main/checkbox_done"
+  id: "done"
+  parent: "inlay"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  enabled: false
+}
+nodes {
+  position {
+    x: 14.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  texture: "main/checkbox_skip"
+  id: "skip"
+  parent: "inlay"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  enabled: false
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
