@@ -1,0 +1,51 @@
+# Fake gamepad named X - because Defold requires at least one gamepad on a
+# platform in order to send raw input for other "unknown" gamepads.
+
+driver {
+  device: "X"
+  platform: "osx"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}
+
+driver {
+  device: "X"
+  platform: "linux"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}
+
+driver {
+  device: "X"
+  platform: "windows"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}
+
+driver {
+  device: "X"
+  platform: "web"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}
+
+driver {
+  device: "X"
+  platform: "android"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}
+
+driver {
+  device: "X"
+  platform: "playstation"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}
+
+driver {
+  device: "X"
+  platform: "switch"
+  dead_zone: 0.1
+  map { input: GAMEPAD_RAW type: GAMEPAD_TYPE_AXIS index: 0 }
+}

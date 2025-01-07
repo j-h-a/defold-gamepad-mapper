@@ -1,0 +1,90 @@
+local messages = require "main.messages"
+local devices = require "main.devices"
+
+local all_buttons = {
+    "button1",
+    "button2",
+    "button3",
+    "button4",
+}
+
+local function update_buttons_from_devices(self)
+    for i, button in ipairs(all_buttons) do
+        local button_node = gui.get_node(button)
+        local text_node = gui.get_node(button .. "_text")
+        local gamepad_index = i - 1
+        gui.set_alpha(button_node, devices.is_connected(gamepad_index) and 1 or 0.5)
+        local title = "" .. i .. ": " .. (devices.get_name(gamepad_index) or "Not connected")
+        gui.set_text(text_node, title)
+    end
+end
+
+local function set_status_text(self, text)
+    gui.set_text(gui.get_node("status_text"), text)
+end
+
+local function reset_status(self, delay)
+    timer.delay(delay or 2, false, function()
+        local status_text = "Choose a controller to map."
+        if next(devices.gamepads) == nil then
+            status_text = "Waiting for controllers..."
+        end
+        set_status_text(self, status_text)
+    end)
+end
+
+local function show_brief_status(self, text)
+    set_status_text(self, text)
+    reset_status(self)
+end
+
+local function reset(self)
+    local root_node = gui.get_node("root")
+    gui.set_enabled(root_node, true)
+    update_buttons_from_devices(self)
+    reset_status(self)
+end
+
+local function disable(self)
+    local root_node = gui.get_node("root")
+    gui.set_enabled(root_node, false)
+end
+
+-- Defold lifecycle functions
+
+function init(self)
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == msg.ENABLE then
+        reset(self)
+        msg.post(".", msg.ACQUIRE_INPUT_FOCUS)
+    elseif message_id == msg.DISABLE then
+        disable(self)
+        msg.post(".", msg.RELEASE_INPUT_FOCUS)
+    elseif message_id == msg.DEVICES_UPDATED then
+        update_buttons_from_devices(self)
+        reset_status(self, 0)
+    elseif message_id == msg.UPDATE_STATUS_TEXT then
+        show_brief_status(self, message.text)
+    end
+end
+
+function on_input(self, action_id, action)
+    local keys = {
+        [hash("key_1")] = 1,
+        [hash("key_2")] = 2,
+        [hash("key_3")] = 3,
+        [hash("key_4")] = 4,
+    }
+    local key_pressed = keys[action_id]
+
+    if key_pressed and action.pressed then
+        local gamepad_index = key_pressed - 1
+        if devices.is_connected(gamepad_index) then
+            msg.post(messages.main_gui, msg.GAMEPAD_SELECTED, { gamepad_index = gamepad_index })
+        else
+            show_brief_status(self, "" .. key_pressed .. ": Not connected!")
+        end
+    end
+end

@@ -1,0 +1,92 @@
+local messages = require "main.messages"
+local devices = require "main.devices"
+
+local function create_grid(self)
+    local width = 1024
+    local height = 768
+    local box_sz = 45
+    local line_width_thin = 1
+    local line_width_thick = 2
+    local line_color = vmath.vector4(0.6, 0.7, 0.9, 0.3)
+
+    -- create horizontal lines
+    local mid = height / 2
+    local step = box_sz / 2
+    local count = 3
+    while mid - step > 0 do
+        local thickness = count % 5 == 0 and line_width_thick or line_width_thin
+        local line1 = gui.new_box_node(vmath.vector3(width/2, mid + step, 0), vmath.vector3(width, thickness, 0))
+        local line2 = gui.new_box_node(vmath.vector3(width/2, mid - step, 0), vmath.vector3(width, thickness, 0))
+        gui.set_color(line1, line_color)
+        gui.set_color(line2, line_color)
+        gui.set_parent(line1, gui.get_node("grid"), true)
+        gui.set_parent(line2, gui.get_node("grid"), true)
+        step = step + box_sz
+        count = count + 1
+    end
+    -- create vertical lines
+    local mid = width / 2
+    local step = box_sz / 2
+    local count = 3
+    while mid - step > 0 do
+        local thickness = count % 5 == 0 and line_width_thick or line_width_thin
+        local line1 = gui.new_box_node(vmath.vector3(mid + step, height/2, 0), vmath.vector3(thickness, height, 0))
+        local line2 = gui.new_box_node(vmath.vector3(mid - step, height/2, 0), vmath.vector3(thickness, height, 0))
+        gui.set_color(line1, line_color)
+        gui.set_color(line2, line_color)
+        gui.set_parent(line1, gui.get_node("grid"), true)
+        gui.set_parent(line2, gui.get_node("grid"), true)
+        step = step + box_sz
+        count = count + 1
+    end
+end
+
+local function show_list_screen(self, initial_status)
+    self.mapping_gamepad = nil
+    msg.post(messages.list_screen, msg.ENABLE)
+    msg.post(messages.mapper_screen, msg.DISABLE)
+    if initial_status then
+        msg.post(messages.list_screen, msg.UPDATE_STATUS_TEXT, { text = initial_status })
+    end
+end
+
+local function show_mapper_screen(self, gamepad_index)
+    self.mapping_gamepad = gamepad_index
+    msg.post(messages.list_screen, msg.DISABLE)
+    msg.post(messages.mapper_screen, msg.START_MAPPING, { gamepad_index = gamepad_index })
+end
+
+local function notify_devices_updated(self)
+    if self.mapping_gamepad then
+        msg.post(messages.mapper_screen, msg.DEVICES_UPDATED)
+    else
+        msg.post(messages.list_screen, msg.DEVICES_UPDATED)
+    end
+end
+
+-- Defold lifecycle functions
+
+function init(self)
+    messages.init()
+    msg.post(".", msg.ACQUIRE_INPUT_FOCUS)
+    create_grid(self)
+    show_list_screen(self)
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == msg.GAMEPAD_SELECTED then
+        show_mapper_screen(self, message.gamepad_index)
+    elseif message_id == msg.MAPPING_CANCELLED then
+        show_list_screen(self, "Mapping cancelled!")
+    end
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("connected") and action.gamepad_unknown then
+        devices.add(action.gamepad, action.gamepad_name)
+        notify_devices_updated(self)
+    elseif action_id == hash("disconnected") and action.gamepad_unknown then
+        devices.remove(action.gamepad)
+        notify_devices_updated(self)
+    end
+end

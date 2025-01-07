@@ -1,0 +1,31 @@
+images {
+  image: "/assets/button.png"
+}
+images {
+  image: "/assets/generic_controller.png"
+}
+images {
+  image: "/assets/lit_home.png"
+}
+images {
+  image: "/assets/lit_lpad.png"
+}
+images {
+  image: "/assets/lit_rpad.png"
+}
+images {
+  image: "/assets/lit_shoulder.png"
+}
+images {
+  image: "/assets/lit_start.png"
+}
+images {
+  image: "/assets/lit_stick_arrow.png"
+}
+images {
+  image: "/assets/lit_stick_dot.png"
+}
+images {
+  image: "/assets/lit_trigger.png"
+}
+margin: 1

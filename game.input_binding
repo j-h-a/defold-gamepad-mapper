@@ -1,0 +1,48 @@
+key_trigger {
+  input: KEY_1
+  action: "key_1"
+}
+key_trigger {
+  input: KEY_2
+  action: "key_2"
+}
+key_trigger {
+  input: KEY_3
+  action: "key_3"
+}
+key_trigger {
+  input: KEY_4
+  action: "key_4"
+}
+key_trigger {
+  input: KEY_ESC
+  action: "key_esc"
+}
+key_trigger {
+  input: KEY_KP_1
+  action: "key_1"
+}
+key_trigger {
+  input: KEY_KP_2
+  action: "key_2"
+}
+key_trigger {
+  input: KEY_KP_3
+  action: "key_3"
+}
+key_trigger {
+  input: KEY_KP_4
+  action: "key_4"
+}
+gamepad_trigger {
+  input: GAMEPAD_RAW
+  action: "raw"
+}
+gamepad_trigger {
+  input: GAMEPAD_CONNECTED
+  action: "connected"
+}
+gamepad_trigger {
+  input: GAMEPAD_DISCONNECTED
+  action: "disconnected"
+}

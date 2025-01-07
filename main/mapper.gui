@@ -1,0 +1,773 @@
+script: "/main/mapper.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+textures {
+  name: "main"
+  texture: "/main/main.atlas"
+}
+nodes {
+  position {
+    x: 512.0
+    y: 384.0
+  }
+  size {
+    x: 1024.0
+    y: 768.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    y: 320.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 512.0
+    y: 20.0
+  }
+  type: TYPE_TEXT
+  text: "..."
+  font: "default"
+  id: "gamepad_name"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  type: TYPE_BOX
+  texture: "main/generic_controller"
+  id: "gamepad"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -90.5
+    y: 105.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_shoulder"
+  id: "lit_lshoulder"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -87.5
+    y: 140.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_trigger"
+  id: "lit_ltrigger"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 90.5
+    y: 105.0
+  }
+  scale {
+    x: -1.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_shoulder"
+  id: "lit_rshoulder"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 87.5
+    y: 140.5
+  }
+  scale {
+    x: -1.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_trigger"
+  id: "lit_rtrigger"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -50.5
+    y: -89.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_up"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -50.5
+    y: -128.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_down"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -69.5
+    y: -108.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_left"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -31.0
+    y: -108.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_lpad"
+  id: "lit_lpad_right"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 98.0
+    y: -24.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_up"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 98.0
+    y: -74.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_down"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 69.5
+    y: -49.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_left"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 126.5
+    y: -49.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_rpad"
+  id: "lit_rpad_right"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 28.75
+    y: -50.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_start"
+  id: "lit_start"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -30.75
+    y: -50.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_start"
+  id: "lit_back"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -1.0
+    y: -74.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_home"
+  id: "lit_home"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -104.5
+    y: -49.0
+  }
+  size {
+    x: 104.0
+    y: 104.0
+  }
+  type: TYPE_BOX
+  id: "group_lstick"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    y: 25.0
+  }
+  rotation {
+    z: 270.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_lstick_up"
+  parent: "group_lstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "lsu_dot"
+  parent: "lit_lstick_up"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsu_arrow"
+  parent: "lit_lstick_up"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -25.0
+  }
+  rotation {
+    z: 90.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_lstick_down"
+  parent: "group_lstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "lsd_dot"
+  parent: "lit_lstick_down"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsd_arrow"
+  parent: "lit_lstick_down"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -25.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_lstick_left"
+  parent: "group_lstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "lsl_dot"
+  parent: "lit_lstick_left"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsl_arrow"
+  parent: "lit_lstick_left"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 25.0
+  }
+  rotation {
+    z: 180.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_lstick_right"
+  parent: "group_lstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "lsr_dot"
+  parent: "lit_lstick_right"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsr_arrow"
+  parent: "lit_lstick_right"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 31.0
+    y: 31.0
+  }
+  type: TYPE_BOX
+  id: "lit_lstick_click"
+  parent: "group_lstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "lsclick_dot"
+  parent: "lit_lstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 15.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsclick_arrow1"
+  parent: "lit_lstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 15.0
+  }
+  rotation {
+    z: 90.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsclick_arrow2"
+  parent: "lit_lstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -15.0
+  }
+  rotation {
+    z: 180.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsclick_arrow3"
+  parent: "lit_lstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -15.0
+  }
+  rotation {
+    z: 270.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "lsclick_arrow4"
+  parent: "lit_lstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 50.0
+    y: -114.0
+  }
+  size {
+    x: 104.0
+    y: 104.0
+  }
+  type: TYPE_BOX
+  id: "group_rstick"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    y: 25.0
+  }
+  rotation {
+    z: 270.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_rstick_up"
+  parent: "group_rstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "rsu_dot"
+  parent: "lit_rstick_up"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsu_arrow"
+  parent: "lit_rstick_up"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -25.0
+  }
+  rotation {
+    z: 90.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_rstick_down"
+  parent: "group_rstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "rsd_dot"
+  parent: "lit_rstick_down"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsd_arrow"
+  parent: "lit_rstick_down"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -25.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_rstick_left"
+  parent: "group_rstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "rsl_dot"
+  parent: "lit_rstick_left"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsl_arrow"
+  parent: "lit_rstick_left"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 25.0
+  }
+  rotation {
+    z: 180.0
+  }
+  size {
+    x: 40.0
+    y: 20.0
+  }
+  type: TYPE_BOX
+  id: "lit_rstick_right"
+  parent: "group_rstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "rsr_dot"
+  parent: "lit_rstick_right"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -10.0
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsr_arrow"
+  parent: "lit_rstick_right"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 31.0
+    y: 31.0
+  }
+  type: TYPE_BOX
+  id: "lit_rstick_click"
+  parent: "group_rstick"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  type: TYPE_BOX
+  texture: "main/lit_stick_dot"
+  id: "rsclick_dot"
+  parent: "lit_rstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 15.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsclick_arrow1"
+  parent: "lit_rstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 15.0
+  }
+  rotation {
+    z: 90.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsclick_arrow2"
+  parent: "lit_rstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -15.0
+  }
+  rotation {
+    z: 180.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsclick_arrow3"
+  parent: "lit_rstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -15.0
+  }
+  rotation {
+    z: 270.0
+  }
+  scale {
+    x: 0.5
+  }
+  type: TYPE_BOX
+  texture: "main/lit_stick_arrow"
+  id: "rsclick_arrow4"
+  parent: "lit_rstick_click"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -324.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 512.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  font: "default"
+  id: "prompt_text"
+  parent: "root"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

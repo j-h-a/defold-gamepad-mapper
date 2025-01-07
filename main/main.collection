@@ -1,0 +1,26 @@
+name: "main"
+scale_along_z: 0
+embedded_instances {
+  id: "list_screen"
+  data: "components {\n"
+  "  id: \"list\"\n"
+  "  component: \"/main/list.gui\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "gui"
+  data: "components {\n"
+  "  id: \"main\"\n"
+  "  component: \"/main/main.gui\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "mapper_screen"
+  data: "components {\n"
+  "  id: \"mapper\"\n"
+  "  component: \"/main/mapper.gui\"\n"
+  "}\n"
+  ""
+}

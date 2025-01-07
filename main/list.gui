@@ -1,0 +1,283 @@
+script: "/main/list.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+textures {
+  name: "main"
+  texture: "/main/main.atlas"
+}
+nodes {
+  position {
+    x: 512.0
+    y: 384.0
+  }
+  size {
+    x: 1024.0
+    y: 768.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    y: 310.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 512.0
+    y: 40.0
+  }
+  type: TYPE_TEXT
+  text: "Defold Gamepad Mapper"
+  font: "default"
+  id: "title"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -180.0
+  }
+  size {
+    x: 720.0
+    y: 40.0
+  }
+  type: TYPE_TEXT
+  text: "Plug in up to 4 controllers, then type the number of the one you want to map."
+  font: "default"
+  id: "subtitle"
+  line_break: true
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "group_buttons"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  type: TYPE_BOX
+  id: "button1"
+  parent: "group_buttons"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  size {
+    x: 640.0
+    y: 48.0
+  }
+  type: TYPE_BOX
+  texture: "main/button"
+  id: "button1_bg"
+  parent: "button1"
+  inherit_alpha: true
+  slice9 {
+    x: 6.0
+    y: 6.0
+    z: 6.0
+    w: 6.0
+  }
+}
+nodes {
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 420.0
+    y: 24.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Not connected"
+  font: "default"
+  id: "button1_text"
+  parent: "button1"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -60.0
+  }
+  type: TYPE_BOX
+  id: "button2"
+  parent: "group_buttons"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  size {
+    x: 640.0
+    y: 48.0
+  }
+  type: TYPE_BOX
+  texture: "main/button"
+  id: "button2_bg"
+  parent: "button2"
+  inherit_alpha: true
+  slice9 {
+    x: 6.0
+    y: 6.0
+    z: 6.0
+    w: 6.0
+  }
+}
+nodes {
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 420.0
+    y: 24.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Not connected"
+  font: "default"
+  id: "button2_text"
+  parent: "button2"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -120.0
+  }
+  type: TYPE_BOX
+  id: "button3"
+  parent: "group_buttons"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  size {
+    x: 640.0
+    y: 48.0
+  }
+  type: TYPE_BOX
+  texture: "main/button"
+  id: "button3_bg"
+  parent: "button3"
+  inherit_alpha: true
+  slice9 {
+    x: 6.0
+    y: 6.0
+    z: 6.0
+    w: 6.0
+  }
+}
+nodes {
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 420.0
+    y: 24.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Not connected"
+  font: "default"
+  id: "button3_text"
+  parent: "button3"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -180.0
+  }
+  type: TYPE_BOX
+  id: "button4"
+  parent: "group_buttons"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  size {
+    x: 640.0
+    y: 48.0
+  }
+  type: TYPE_BOX
+  texture: "main/button"
+  id: "button4_bg"
+  parent: "button4"
+  inherit_alpha: true
+  slice9 {
+    x: 6.0
+    y: 6.0
+    z: 6.0
+    w: 6.0
+  }
+}
+nodes {
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 420.0
+    y: 24.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Not connected"
+  font: "default"
+  id: "button4_text"
+  parent: "button4"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: -324.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 512.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  font: "default"
+  id: "status_text"
+  parent: "root"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

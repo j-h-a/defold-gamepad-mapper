@@ -1,0 +1,42 @@
+script: "/main/main.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 512.0
+    y: 384.0
+  }
+  size {
+    x: 1024.0
+    y: 768.0
+  }
+  color {
+    x: 0.161
+    y: 0.251
+    z: 0.608
+  }
+  type: TYPE_BOX
+  id: "bg"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 512.0
+    y: 384.0
+  }
+  size {
+    x: 1024.0
+    y: 768.0
+  }
+  type: TYPE_BOX
+  id: "grid"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
