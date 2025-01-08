@@ -1,7 +1,5 @@
 # Defold Gamepad Mapper
 
-TODO: Write files out after mapping is complete.
-
 This is a tool for creating gamepad mapping files for the Defold game engine.
 It provides a simple GUI that allows connected controllers to be mapped, and
 writes out a `.gamepads` map file when mapping is complete. This file can be

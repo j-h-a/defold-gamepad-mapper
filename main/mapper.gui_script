@@ -2,6 +2,7 @@ local messages = require "main.messages"
 local devices = require "main.devices"
 local mapper = require "main.mapper"
 local detector = require "main.detector"
+local gamepads_pb = require "main.gamepads_pb"
 
 local STATE_MAPPING = hash("mapping")
 local STATE_COMPLETE = hash("complete")
@@ -146,16 +147,39 @@ local function begin_mapping(self)
     await_no_input(self)
 end
 
+local function save_mapping(self)
+    local pb = gamepads_pb.new_driver(self.gamepad_name)
+    for _, capture_data in pairs(self.captured_inputs) do
+        if not capture_data.is_skipped then
+            pb:add_map({
+                input = capture_data.trigger_name,
+                type = capture_data.type,
+                index = capture_data.index,
+                hat_mask = capture_data.hat_mask,
+                modifiers = capture_data.modifiers,
+            })
+        end
+    end
+    local filename = self.gamepad_name .. ".gamepads"
+    local file = io.open(filename, "w")
+    if not file then
+        return "Failed to open '" .. filename .. "' for writing."
+    end
+    file:write(pb:to_string())
+    file:close()
+    return "Mapping saved to '" .. filename .. "'."
+end
+
 local function reset(self, gamepad_index)
     local root_node = gui.get_node("root")
     gui.set_enabled(root_node, true)
     gui.set_enabled(gui.get_node("other_controls"), true)
 
     self.gamepad_index = gamepad_index
+    self.gamepad_name = devices.gamepads[gamepad_index] or "Unknown"
 
     local name_node = gui.get_node("gamepad_name")
-    local name = devices.gamepads[gamepad_index] or "Unknown"
-    gui.set_text(name_node, name)
+    gui.set_text(name_node, self.gamepad_name)
 
     self.detector = detector.new()
     begin_mapping(self)
@@ -190,8 +214,8 @@ end
 
 local function handle_enter(self, action)
     if self.state == STATE_COMPLETE and self.awaiting == AWAIT_CONFIRMATION then
-        -- TODO: save mapping
-        msg.post(messages.main_gui, msg.MAPPING_COMPLETED, { status = "Mapping complete." })
+        local result = save_mapping(self)
+        msg.post(messages.main_gui, msg.MAPPING_COMPLETED, { status = result })
     end
 end
 
