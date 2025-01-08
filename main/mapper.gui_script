@@ -1,9 +1,17 @@
 local messages = require "main.messages"
 local devices = require "main.devices"
 local mapper = require "main.mapper"
+local detector = require "main.detector"
 
-local STATE_MAPPING = 1
-local STATE_COMPLETE = 2
+local STATE_MAPPING = hash("mapping")
+local STATE_COMPLETE = hash("complete")
+
+local AWAIT_NO_INPUT = hash("no_input")
+local AWAIT_SINGLE_INPUT = hash("single_input")
+local AWAIT_CONFIRMATION = hash("confirmation")
+
+local HOLD_DURATION = 0.6
+local RELEASE_DURATION = 0.2
 
 local function highlight_single_input(self, lit_input)
     for _, input in ipairs(mapper.all_inputs) do
@@ -15,6 +23,12 @@ end
 local function set_input_name_and_prompt(self, name, prompt)
     gui.set_text(gui.get_node("current_input"), name)
     gui.set_text(gui.get_node("prompt_text"), prompt)
+end
+
+local function set_progress(self, progress)
+    local outline = progress > 0 and vmath.clamp(progress * 360 + 4, 0, 360) or 0
+    gui.set_fill_angle(gui.get_node("progress_outline"), outline)
+    gui.set_fill_angle(gui.get_node("progress"), progress * 360)
 end
 
 local function new_capture_data(self, input_id)
@@ -33,16 +47,39 @@ local function new_capture_data(self, input_id)
     gui.play_flipbook(capture_data.icon_node, "icon_" .. input_id)
     gui.set_text(capture_data.text_node, "---\n---")
     gui.set_position(capture_data.root_node, input_info.start_pos)
-    gui.animate(capture_data.root_node, gui.PROP_POSITION, input_info.hold_pos, gui.EASING_OUTBACK, 0.35, 0.2)
+    gui.animate(capture_data.root_node, gui.PROP_POSITION, input_info.hold_pos, gui.EASING_OUTBACK, 0.35)
     return capture_data
 end
 
 local function complete_mapping(self)
     self.state = STATE_COMPLETE
+    self.awaiting = AWAIT_CONFIRMATION
     highlight_single_input(self, nil)
-    local prompt = "Check inputs then press ENTER to save the mapping.\nPress ESC to cancel this mapping."
+    local prompt = "Check the captured data above and press ENTER to save.\nPress ESC to cancel this mapping."
     set_input_name_and_prompt(self, "Mapping Complete", prompt)
     gui.set_enabled(gui.get_node("other_controls"), false)
+end
+
+local function describe_capture_data(capture_data)
+    local type_map = {
+        [detector.INPUT_TYPE_BUTTON] = "B",
+        [detector.INPUT_TYPE_AXIS] = "A",
+        [detector.INPUT_TYPE_HAT] = "H",
+    }
+    local modifier_map = {
+        [detector.MODIFIER_NEGATE] = "N",
+        [detector.MODIFIER_CLAMP] = "C",
+        [detector.MODIFIER_SCALE] = "S",
+    }
+    local s = ("%s-%0.2d\n"):format(type_map[capture_data.type], capture_data.index)
+    if capture_data.hat_mask then
+        s = s .. ("^%d"):format(capture_data.hat_mask)
+    else
+        for _, modifier in ipairs(capture_data.modifiers) do
+            s = s .. modifier_map[modifier]
+        end
+    end
+    return s
 end
 
 local function finalize_current_mapping(self, input_id)
@@ -55,9 +92,7 @@ local function finalize_current_mapping(self, input_id)
     gui.set_enabled(capture_data.skip_node, capture_data.is_skipped)
 
     if not capture_data.is_skipped then
-        -- TODO: Encode the capture data to a short two-line string including
-        -- input type, index, hat mask, and characters for modifier flags
-        gui.set_text(capture_data.text_node, "Done")
+        gui.set_text(capture_data.text_node, describe_capture_data(capture_data))
     end
 end
 
@@ -68,6 +103,8 @@ local function continue_mapping_next(self)
         return
     end
 
+    self.awaiting = AWAIT_SINGLE_INPUT
+
     local input_id = mapper.all_inputs[self.active_input]
     highlight_single_input(self, input_id)
 
@@ -77,26 +114,36 @@ local function continue_mapping_next(self)
     self.captured_inputs[input_id] = new_capture_data(self, input_id)
 end
 
+local function await_no_input(self)
+    self.awaiting = AWAIT_NO_INPUT
+    set_input_name_and_prompt(self, "", "Release all inputs...")
+    highlight_single_input(self, nil)
+end
+
 local function skip_input_mapping(self)
     local input_id = mapper.all_inputs[self.active_input]
     local capture_data = self.captured_inputs[input_id]
     capture_data.is_skipped = true
     finalize_current_mapping(self, input_id)
-    continue_mapping_next(self)
+    await_no_input(self)
 end
 
-local function capture_input_mapping(self)
+local function capture_input_mapping(self, input_data)
     local input_id = mapper.all_inputs[self.active_input]
     local capture_data = self.captured_inputs[input_id]
-    -- TODO: Store detected input settings in capture_data
-    continue_mapping_next(self)
+    capture_data.type = input_data.type
+    capture_data.index = input_data.index
+    capture_data.hat_mask = input_data.hat_mask
+    capture_data.modifiers = input_data.modifiers
+    finalize_current_mapping(self, input_id)
+    await_no_input(self)
 end
 
 local function begin_mapping(self)
     self.captured_inputs = {}
     self.active_input = 0
     self.state = STATE_MAPPING
-    continue_mapping_next(self)
+    await_no_input(self)
 end
 
 local function reset(self, gamepad_index)
@@ -110,6 +157,7 @@ local function reset(self, gamepad_index)
     local name = devices.gamepads[gamepad_index] or "Unknown"
     gui.set_text(name_node, name)
 
+    self.detector = detector.new()
     begin_mapping(self)
 end
 
@@ -125,6 +173,52 @@ local function disable(self)
     gui.set_enabled(root_node, false)
     self.gamepad_index = -1
     self.state = nil
+    self.detector = nil
+end
+
+-- Input handlers
+
+local function handle_esc(self, action)
+    msg.post(messages.main_gui, msg.MAPPING_CANCELLED)
+end
+
+local function handle_backspace(self, action)
+    if self.state == STATE_MAPPING and self.awaiting == AWAIT_SINGLE_INPUT then
+        skip_input_mapping(self)
+    end
+end
+
+local function handle_enter(self, action)
+    if self.state == STATE_COMPLETE and self.awaiting == AWAIT_CONFIRMATION then
+        -- TODO: save mapping
+        msg.post(messages.main_gui, msg.MAPPING_COMPLETED, { status = "Mapping complete." })
+    end
+end
+
+local input_pressed_handlers = {
+    [hash("key_esc")] = handle_esc,
+    [hash("key_backspace")] = handle_backspace,
+    [hash("key_enter")] = handle_enter,
+}
+
+local function handle_raw_gamepad(self, action)
+    if self.state == STATE_MAPPING then
+        self.detector:update_raw_gamepad_data(action)
+        if self.awaiting == AWAIT_NO_INPUT then
+            local progress = self.detector:no_input_progress(RELEASE_DURATION)
+            if progress == 1 then
+                continue_mapping_next(self)
+            end
+            set_progress(self, 1 - progress)
+        elseif self.awaiting == AWAIT_SINGLE_INPUT then
+            local progress = self.detector:single_input_progress(HOLD_DURATION)
+            if progress == 1 then
+                local input_data = self.detector:get_single_data()
+                capture_input_mapping(self, input_data)
+            end
+            set_progress(self, progress)
+        end
+    end
 end
 
 -- Defold lifecycle functions
@@ -150,17 +244,12 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-    if action_id == hash("key_esc") and action.pressed then
-        msg.post(messages.main_gui, msg.MAPPING_CANCELLED)
-    elseif action_id == hash("key_backspace") and action.pressed then
-        if self.state == STATE_MAPPING then
-            skip_input_mapping(self)
+    if action_id == hash("raw") and action.gamepad == self.gamepad_index then
+        handle_raw_gamepad(self, action)
+    elseif action.pressed then
+        local handler = input_pressed_handlers[action_id]
+        if handler then
+            handler(self, action)
         end
-    elseif action_id == hash("key_enter") and action.pressed then
-        if self.state == STATE_COMPLETE then
-            -- TODO: save mapping
-            msg.post(messages.main_gui, msg.MAPPING_COMPLETED, { status = "Mapping complete." })
-        end
-    elseif action_id == hash("raw") and action.gamepad == self.gamepad_index then
     end
 end

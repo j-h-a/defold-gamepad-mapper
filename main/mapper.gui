@@ -767,6 +767,55 @@ nodes {
 }
 nodes {
   position {
+    y: -190.0
+  }
+  rotation {
+    z: -88.0
+  }
+  scale {
+    x: -1.0
+  }
+  size {
+    x: 125.0
+    y: 125.0
+  }
+  type: TYPE_PIE
+  id: "progress_outline"
+  parent: "root"
+  inherit_alpha: true
+  innerRadius: 42.0
+  perimeterVertices: 64
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -190.0
+  }
+  rotation {
+    z: -90.0
+  }
+  scale {
+    x: -1.0
+  }
+  size {
+    x: 120.0
+    y: 120.0
+  }
+  color {
+    x: 0.416
+    y: 0.745
+    z: 0.188
+  }
+  type: TYPE_PIE
+  id: "progress"
+  parent: "root"
+  inherit_alpha: true
+  innerRadius: 45.0
+  perimeterVertices: 64
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
     y: -220.0
   }
   size {
